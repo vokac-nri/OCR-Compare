@@ -1,0 +1,7 @@
+# Seeded from Windows pins 2026-06, never installed on a real Mac — on pip
+# failure see README "macOS first run" (setup_env.sh --unpinned +
+# freeze_pins.py --write).
+# Stage 3: paddleocr with [all] extras (PP-StructureV3 / PaddleOCR-VL
+# pipelines need the doc-parser dependencies), plus pymupdf for rasterizing.
+paddleocr[all]==3.6.0
+pymupdf==1.27.2.3

@@ -19,6 +19,7 @@ the problem count.
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import sys
 import sysconfig
@@ -32,6 +33,14 @@ _PIN_RE = re.compile(r"^([A-Za-z0-9._-]+)(\[[^\]]*\])?==(.+)$")
 def _canonical(name: str) -> str:
     """PEP 503 name normalization."""
     return re.sub(r"[-_.]+", "-", name).lower()
+
+
+def _cli_path(prefix: Path, exe: str) -> Path:
+    """Where a conda-forge CLI lands: <env>\\Library\\bin\\<exe>.exe on
+    Windows, <env>/bin/<exe> elsewhere."""
+    if os.name == "nt":
+        return prefix / "Library" / "bin" / f"{exe}.exe"
+    return prefix / "bin" / exe
 
 
 def _manifest_files(manifest_dir: Path, variant: str, paddle_variant: str) -> list[Path]:
@@ -70,7 +79,7 @@ def main() -> int:
     ap.add_argument("--require-sitecustomize", action="store_true",
                     help="verify the OpenSSL-3.6 sitecustomize.py workaround is installed")
     ap.add_argument("--require-cli", nargs="*", default=[],
-                    help="exe names that must exist in <env>\\Library\\bin")
+                    help="exe names that must exist in the env's native-bin dir")
     args = ap.parse_args()
 
     problems = 0
@@ -99,8 +108,9 @@ def main() -> int:
             problems += 1
 
     for exe in args.require_cli:
-        if not (Path(sys.prefix) / "Library" / "bin" / f"{exe}.exe").exists():
-            print(f"MISSING-CLI {exe}.exe (Library\\bin)")
+        expected = _cli_path(Path(sys.prefix), exe)
+        if not expected.exists():
+            print(f"MISSING-CLI {expected}")
             problems += 1
 
     if problems == 0:

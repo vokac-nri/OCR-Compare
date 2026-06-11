@@ -58,6 +58,85 @@ editing any pin (or deleting the stamp) makes the next launch re-check and
 repair via `tools\check_deps.py` + `setup_env.ps1 -Repair`. Launcher and setup
 logs land in `%LOCALAPPDATA%\OCR-Compare\logs\`.
 
+## macOS (Apple Silicon)
+
+Requirements: an M1 or newer Mac, **macOS 14 (Sonoma)+** (the pinned torch
+wheels are `macosx_14_0_arm64`; Intel Macs cannot work — PyTorch dropped their
+wheels after 2.2), ~10 GB free disk, and network for the first run.
+
+Quick start: clone the repo and double-click **`OCR-Compare.command`**. It
+runs `bootstrap.sh`, which works exactly like the Windows launcher — first run
+installs Miniforge if needed and builds both envs (30–60 min); later launches
+hit the cached stamp and start in ~2 s. State and logs live in
+`~/Library/Application Support/OCR-Compare/`.
+
+> **Downloaded as a zip instead of cloned?** Gatekeeper quarantines the
+> scripts (right-click → Open, or `xattr -d com.apple.quarantine
+> OCR-Compare.command`), and zip extraction may drop the executable bit
+> (`chmod +x OCR-Compare.command bootstrap.sh setup_env.sh`). A `git clone`
+> avoids all of this.
+
+What differs from Windows:
+
+- **EasyOCR and Docling's torch run on the Apple GPU (MPS)** — the device
+  column shows "Apple GPU (MPS)". The paddle family is **CPU-only** (paddle
+  has no Metal backend), so PaddleOCR-VL is impractically slow; PaddleOCR and
+  PP-StructureV3 are usable but slower than on CUDA.
+- Single variant — there is no `--variant gpu|cpu` flag.
+- No `sitecustomize.py` SSL patch (that bug is Windows-cert-store specific).
+
+```bash
+bash bootstrap.sh --recheck     # ignore the cached stamp, re-verify every pin now
+bash bootstrap.sh --reinstall   # force a full setup_env.sh pass
+bash bootstrap.sh --no-launch   # verify/repair only, don't start the GUI
+bash bootstrap.sh --no-pause    # don't wait for Enter on failure (scripted use)
+```
+
+### macOS first run (pin troubleshooting)
+
+The pins in `requirements/mac/` were seeded from the verified Windows versions
+(2026-06) but have never been installed on a real Mac. If pip fails on a pin
+during setup:
+
+1. Either edit the named pin in the manifest the error points at, or rerun
+   unpinned and let pip resolve freely: `bash setup_env.sh --unpinned`
+2. Lock in what actually landed (run once per env, with that env's python):
+
+   ```bash
+   ~/miniforge3/envs/ocr-compare/bin/python tools/freeze_pins.py \
+       --manifest-dir requirements/mac/ocr-compare --write
+   ~/miniforge3/envs/ocr-compare-paddle/bin/python tools/freeze_pins.py \
+       --manifest-dir requirements/mac/ocr-compare-paddle --write
+   ```
+
+3. Commit the updated manifests so the next Mac gets working pins.
+
+Troubleshooting: if a paddle import aborts with **OMP Error #15**
+(duplicate libomp), run
+`conda install -n ocr-compare-paddle -c conda-forge llvm-openmp`.
+
+### First-run validation checklist
+
+The mac port was written and tested from Windows; the first run on real Apple
+hardware should walk this list once:
+
+1. `uname -m` prints `arm64` and macOS is 14+.
+2. After cloning, `ls -l OCR-Compare.command` shows `-rwx…` (executable).
+3. Double-click `OCR-Compare.command` → Miniforge installs (if needed) → both
+   envs build → GUI opens. Note how long it takes.
+4. On any pip pin failure, follow "macOS first run" above and send the updated
+   manifests back for commit.
+5. Relaunch: "Dependencies verified (cached)" and the app starts in ~2 s.
+6. Run `samples/digital_sample.pdf` + `samples/scanned_sample.pdf` with
+   pymupdf, pdftotext, tesseract, easyocr (device column must say
+   "Apple GPU (MPS)"), paddleocr (device `cpu`, routed to the paddle env),
+   docling, and rapidocr.
+7. Exercise the Open / Open externally / viewer / Diff selected / Open run
+   folder buttons.
+8. `~/miniforge3/envs/ocr-compare/bin/python -m pytest` is green.
+9. `bash bootstrap.sh --recheck --no-launch` exits 0, and a follow-up
+   `bash setup_env.sh --repair` is a fast no-op.
+
 ## Manual / development setup
 
 Requires Windows + Miniconda or Miniforge (conda-forge; the setup script never
@@ -140,6 +219,11 @@ conda run -n ocr-compare python -m app.worker --engine pymupdf `
 # (bootstrap.ps1 changes do NOT need a rebuild - the exe is a thin shim):
 .\tools\build_launcher.ps1
 ```
+
+The macOS launcher needs no build step at all — `OCR-Compare.command` is a
+two-line wrapper around `bootstrap.sh`. To re-pin any manifest directory from
+a live env (both platforms), use `tools/freeze_pins.py --manifest-dir
+requirements/<dir> --write` with that env's python (dry-run without `--write`).
 
 Layering rules: `app/worker.py` + `app/engines/adapters/` never import Qt;
 `app/gui/` never imports an engine framework (narrow exception: pymupdf for

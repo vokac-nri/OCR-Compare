@@ -1,8 +1,10 @@
-"""Ensure the conda env's native binaries (tesseract.exe, pdftotext.exe from
+"""Ensure the conda env's native binaries (tesseract, pdftotext from
 conda-forge) win on PATH, no matter how this interpreter was launched.
 
-Without this, a bare python.exe invocation misses <env>\\Library\\bin and
-`pdftotext` can silently resolve to Git-for-Windows' ancient bundled build.
+Without this, a bare python invocation misses the env's native-bin dir
+(<env>\\Library\\bin on Windows, <env>/bin elsewhere) and `pdftotext` can
+silently resolve to some ancient system build (e.g. Git-for-Windows' bundled
+one).
 """
 from __future__ import annotations
 
@@ -12,10 +14,13 @@ from pathlib import Path
 
 
 def ensure_conda_bin_on_path() -> None:
-    lib_bin = Path(sys.prefix) / "Library" / "bin"
-    if lib_bin.is_dir():
+    if os.name == "nt":
+        native_bin = Path(sys.prefix) / "Library" / "bin"
+    else:
+        native_bin = Path(sys.prefix) / "bin"
+    if native_bin.is_dir():
         current = os.environ.get("PATH", "")
-        entry = str(lib_bin)
+        entry = str(native_bin)
         if not current.lower().startswith(entry.lower() + os.pathsep):
             os.environ["PATH"] = entry + os.pathsep + current
     # conda-forge tesseract looks for ./eng.traineddata unless told otherwise.

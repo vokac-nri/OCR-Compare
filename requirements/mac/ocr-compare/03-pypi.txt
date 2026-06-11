@@ -1,0 +1,20 @@
+# Seeded from Windows pins 2026-06, never installed on a real Mac — on pip
+# failure see README "macOS first run" (setup_env.sh --unpinned +
+# freeze_pins.py --write).
+# Stage 3: everything else from PyPI, after torch/paddle are pinned in place.
+# PySide6 is deliberately absent: it must come from conda-forge (see
+# environment.yml and conda.txt — pip PySide6 wheels break on conda-forge
+# Python).
+pymupdf==1.27.2.3
+pymupdf4llm==1.27.2.3
+pypdfium2==5.9.0
+pytesseract==0.3.13
+easyocr==1.7.2
+paddleocr==3.6.0
+rapidocr==3.8.2
+onnxruntime==1.20.1
+docling==2.101.0
+markitdown[pdf]==0.1.6
+liteparse==2.0.7
+rapidfuzz==3.14.5
+pytest==9.0.3

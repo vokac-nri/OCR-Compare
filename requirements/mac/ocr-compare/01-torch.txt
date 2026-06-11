@@ -1,0 +1,7 @@
+# Seeded from Windows pins 2026-06, never installed on a real Mac — on pip
+# failure see README "macOS first run" (setup_env.sh --unpinned +
+# freeze_pins.py --write).
+# Stage 1: torch from plain PyPI — arm64 mac wheels need no index-url and no
+# +cpu/+cuXXX suffix. MPS (Apple GPU) support is built in.
+torch==2.12.0
+torchvision==0.27.0

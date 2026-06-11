@@ -3,7 +3,6 @@ Wires panels to the RunController and owns the import feature.
 """
 from __future__ import annotations
 
-import os
 import platform
 from pathlib import Path
 
@@ -13,6 +12,7 @@ from PySide6.QtWidgets import (QFileDialog, QMainWindow, QMessageBox,
                                QSplitter, QTabWidget, QToolBar, QVBoxLayout,
                                QWidget)
 
+from app.core.openpath import open_path
 from app.core.pages import parse_pages_spec
 from app.core.plan import RunPlan, discover_files
 from app.core.precheck import build_precheck_report
@@ -268,7 +268,7 @@ class MainWindow(QMainWindow):
     def _open_outputs(self):
         root = self.settings.output_root
         root.mkdir(parents=True, exist_ok=True)
-        os.startfile(str(root))
+        open_path(root)
 
     def closeEvent(self, event):
         self.settings.save_geometry(self)

@@ -70,7 +70,7 @@ class SettingsDialog(QDialog):
         self.diff_path_edit.setPlaceholderText("blank = find on PATH")
         dform.addRow("Executable:", self.diff_path_edit)
         self.diff_template_edit = QLineEdit(settings.diff_tool_template)
-        self.diff_template_edit.setPlaceholderText('mytool.exe "{left}" "{right}"')
+        self.diff_template_edit.setPlaceholderText('mytool "{left}" "{right}"')
         dform.addRow("Custom command:", self.diff_template_edit)
         tabs.addTab(diff, "Diff tool")
 
@@ -78,7 +78,7 @@ class SettingsDialog(QDialog):
         interp = QWidget()
         ilay = QVBoxLayout(interp)
         self.interp_table = QTableWidget(0, 2)
-        self.interp_table.setHorizontalHeaderLabels(["Engine", "python.exe override"])
+        self.interp_table.setHorizontalHeaderLabels(["Engine", "Python interpreter override"])
         self.interp_table.horizontalHeader().setStretchLastSection(True)
         overrides = settings.engine_python_overrides
         specs = all_specs()

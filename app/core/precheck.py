@@ -65,7 +65,7 @@ def build_precheck_report(plan: RunPlan, gpu_available: dict[str, bool]) -> Prec
             framework = "paddle" if eid.startswith(("paddle", "ppstructure")) else "torch"
             if not gpu_available.get(framework, False):
                 rep.slow_warnings.append(
-                    (eid, f"No CUDA detected for {framework} — will run on CPU, "
+                    (eid, f"No GPU acceleration available for {framework} — will run on CPU, "
                           "likely 10–50× slower."))
 
     if plan.charts and rep.chart_capable:

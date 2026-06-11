@@ -1,0 +1,4 @@
+# Shell scripts must reach macOS with LF endings — a CRLF shebang line makes
+# the kernel look for "/bin/bash\r" and the script dies with a cryptic error.
+*.sh text eol=lf
+*.command text eol=lf

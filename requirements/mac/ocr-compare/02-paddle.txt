@@ -1,0 +1,6 @@
+# Seeded from Windows pins 2026-06, never installed on a real Mac — on pip
+# failure see README "macOS first run" (setup_env.sh --unpinned +
+# freeze_pins.py --write).
+# Stage 2: CPU paddle from PyPI. Paddle has no Metal backend, so mac is
+# always CPU — there is no .gpu variant.
+paddlepaddle==3.3.1

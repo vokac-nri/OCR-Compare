@@ -1,0 +1,8 @@
+# Seeded from Windows pins 2026-06, never installed on a real Mac — on pip
+# failure see README "macOS first run" (setup_env.sh --unpinned +
+# freeze_pins.py --write).
+# Conda-forge packages, verified by check_deps.py but NEVER pip-installed
+# (setup_env.sh repairs these with `conda install -c conda-forge`).
+# PySide6 from pip fails to import QtCore on conda-forge Python.
+# Keep in sync with the pyside6 pin in environment.yml.
+PySide6==6.11.1

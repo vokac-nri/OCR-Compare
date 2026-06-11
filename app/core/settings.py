@@ -13,6 +13,13 @@ from PySide6.QtCore import QSettings
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
+def _python_in_env(env_dir: Path) -> Path:
+    """Interpreter path for a conda env dir on either platform layout."""
+    if os.name == "nt":
+        return env_dir / "python.exe"
+    return env_dir / "bin" / "python"
+
+
 def _find_paddle_env_python() -> Path | None:
     """Locate the ocr-compare-paddle interpreter for any conda root.
 
@@ -20,15 +27,18 @@ def _find_paddle_env_python() -> Path | None:
     sibling — that first candidate works wherever conda lives (miniconda3,
     miniforge3, custom). The rest cover running outside the env (tests, IDE).
     """
-    local = Path(os.environ.get("LOCALAPPDATA", str(Path.home() / "AppData" / "Local")))
-    candidates = [
-        Path(sys.prefix).parent / "ocr-compare-paddle" / "python.exe",
-        local / "miniconda3" / "envs" / "ocr-compare-paddle" / "python.exe",
-        local / "miniforge3" / "envs" / "ocr-compare-paddle" / "python.exe",
-    ]
+    candidates = [_python_in_env(Path(sys.prefix).parent / "ocr-compare-paddle")]
     conda_exe = os.environ.get("CONDA_EXE")
     if conda_exe:
-        candidates.insert(1, Path(conda_exe).parents[1] / "envs" / "ocr-compare-paddle" / "python.exe")
+        candidates.append(_python_in_env(
+            Path(conda_exe).parents[1] / "envs" / "ocr-compare-paddle"))
+    roots = []
+    if os.name == "nt":
+        local = Path(os.environ.get("LOCALAPPDATA",
+                                    str(Path.home() / "AppData" / "Local")))
+        roots += [local / "miniconda3", local / "miniforge3"]
+    roots += [Path.home() / "miniforge3", Path.home() / "miniconda3"]
+    candidates += [_python_in_env(r / "envs" / "ocr-compare-paddle") for r in roots]
     return next((c for c in candidates if c.exists()), None)
 
 

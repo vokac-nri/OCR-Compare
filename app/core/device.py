@@ -17,9 +17,12 @@ import json
 out = {"torch": False, "paddle": False, "gpu_name": "", "torch_err": "", "paddle_err": ""}
 try:
     import torch
-    out["torch"] = bool(torch.cuda.is_available())
-    if out["torch"]:
+    if torch.cuda.is_available():
+        out["torch"] = True
         out["gpu_name"] = torch.cuda.get_device_name(0)
+    elif getattr(torch.backends, "mps", None) and torch.backends.mps.is_available():
+        out["torch"] = True
+        out["gpu_name"] = "Apple GPU (MPS)"
 except Exception as e:
     out["torch_err"] = str(e)
 try:
@@ -92,6 +95,9 @@ def detect_torch_device(device_pref: str = "auto") -> tuple[bool, str]:
         import torch
         if torch.cuda.is_available():
             return True, torch.cuda.get_device_name(0)
+        if (getattr(torch.backends, "mps", None)
+                and torch.backends.mps.is_available()):
+            return True, "Apple GPU (MPS)"
     except Exception as e:
         return False, f"torch GPU init failed: {e}"
-    return False, "torch CUDA not available"
+    return False, "torch GPU not available"

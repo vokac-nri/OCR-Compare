@@ -49,8 +49,12 @@ Get-ChildItem $logDir -Filter "bootstrap-*.log" | Sort-Object LastWriteTime -Des
 
 function Get-ManifestHash {
     # Hash of every pin source + the launcher version: any edit invalidates
-    # the stamp and the next launch re-verifies.
-    $files = @(Get-ChildItem (Join-Path $root "requirements") -Recurse -File | Sort-Object FullName)
+    # the stamp and the next launch re-verifies. requirements\mac\ is excluded:
+    # those manifests are consumed by bootstrap.sh only, so mac pin edits must
+    # not churn Windows stamps.
+    $files = @(Get-ChildItem (Join-Path $root "requirements") -Recurse -File |
+        Where-Object { $_.FullName -notmatch '[\\/]requirements[\\/]mac[\\/]' } |
+        Sort-Object FullName)
     $files += Get-Item (Join-Path $root "environment.yml")
     $concat = (($files | ForEach-Object { (Get-FileHash $_.FullName -Algorithm SHA256).Hash }) -join "|") + "|v$BootstrapVersion"
     $sha = [System.Security.Cryptography.SHA256]::Create()

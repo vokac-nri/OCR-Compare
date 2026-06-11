@@ -3,13 +3,14 @@ Raw/Rendered toggle."""
 from __future__ import annotations
 
 import json
-import os
 from pathlib import Path
 
-from PySide6.QtGui import QFont
+from PySide6.QtGui import QFontDatabase
 from PySide6.QtWidgets import (QDialog, QHBoxLayout, QLabel, QPlainTextEdit,
                                QPushButton, QStackedWidget, QTextBrowser,
                                QVBoxLayout)
+
+from app.core.openpath import open_path
 
 
 class ViewerDialog(QDialog):
@@ -35,7 +36,9 @@ class ViewerDialog(QDialog):
         self.stack = QStackedWidget()
         self.raw = QPlainTextEdit()
         self.raw.setReadOnly(True)
-        self.raw.setFont(QFont("Consolas", 10))
+        mono = QFontDatabase.systemFont(QFontDatabase.SystemFont.FixedFont)
+        mono.setPointSize(10)
+        self.raw.setFont(mono)
         self.raw.setPlainText(text)
         self.stack.addWidget(self.raw)
 
@@ -57,7 +60,7 @@ class ViewerDialog(QDialog):
             self.toggle_btn.clicked.connect(self._toggle)
             footer.addWidget(self.toggle_btn)
         ext_btn = QPushButton("Open externally")
-        ext_btn.clicked.connect(lambda: os.startfile(str(self.path)))
+        ext_btn.clicked.connect(lambda: open_path(self.path))
         footer.addWidget(ext_btn)
         close_btn = QPushButton("Close")
         close_btn.clicked.connect(self.accept)

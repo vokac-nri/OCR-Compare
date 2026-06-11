@@ -5,6 +5,7 @@ from __future__ import annotations
 import os
 import shlex
 import shutil
+import sys
 from pathlib import Path
 
 from PySide6.QtCore import QProcess, Qt
@@ -12,6 +13,7 @@ from PySide6.QtWidgets import (QHBoxLayout, QMessageBox, QPushButton,
                                QTreeWidget, QTreeWidgetItem, QVBoxLayout,
                                QWidget)
 
+from app.core.openpath import open_path
 from app.core.rundata import JobResult, RunData
 from app.gui.viewer_dialog import ViewerDialog
 
@@ -156,11 +158,11 @@ class ResultsPanel(QWidget):
     def _open_current_external(self):
         item = self.tree.currentItem()
         if item and item.data(0, PATH_ROLE):
-            os.startfile(item.data(0, PATH_ROLE))
+            open_path(item.data(0, PATH_ROLE))
 
     def _open_run_folder(self):
         if self.run_dir:
-            os.startfile(str(self.run_dir))
+            open_path(self.run_dir)
 
     def _diff_selected(self):
         paths = self._checked_paths()
@@ -169,16 +171,22 @@ class ResultsPanel(QWidget):
         kind = self._settings.diff_tool_kind
         try:
             if kind == "vscode":
+                mac_code = "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
                 exe = self._settings.diff_tool_path or shutil.which("code") \
-                    or shutil.which("code.cmd")
+                    or shutil.which("code.cmd") \
+                    or (mac_code if sys.platform == "darwin" and Path(mac_code).exists()
+                        else None)
                 if not exe:
                     raise FileNotFoundError(
                         "VS Code ('code') not found on PATH — set its location "
                         "in Settings.")
                 QProcess.startDetached(exe, ["--diff", str(paths[0]), str(paths[1])])
             elif kind == "bcompare":
+                default_bc = (r"C:\Program Files\Beyond Compare 5\BCompare.exe"
+                              if os.name == "nt" else
+                              "/Applications/Beyond Compare.app/Contents/MacOS/bcomp")
                 exe = self._settings.diff_tool_path or shutil.which("BCompare") \
-                    or r"C:\Program Files\Beyond Compare 5\BCompare.exe"
+                    or shutil.which("bcomp") or default_bc
                 if not Path(exe).exists() and not shutil.which(exe):
                     raise FileNotFoundError(
                         "Beyond Compare not found — set its location in Settings.")
