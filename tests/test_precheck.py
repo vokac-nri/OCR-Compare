@@ -32,15 +32,14 @@ def test_regions_only_flags_unsupported():
     assert rep.regions_unsupported == ["pymupdf"]
 
 
-def test_chart_warning_only_when_capable_engine_selected():
+def test_chart_capable_only_when_capable_engine_selected():
     plan = make_plan(engines=["ppstructurev3"], charts=True, output_format="md")
     rep = build_precheck_report(plan, GPU_OK)
     assert rep.chart_capable == ["ppstructurev3"]
-    assert "FABRICATED" in rep.chart_warning
 
     plan2 = make_plan(engines=["pymupdf"], charts=True)
     rep2 = build_precheck_report(plan2, GPU_OK)
-    assert rep2.chart_capable == [] and rep2.chart_warning == ""
+    assert rep2.chart_capable == []
 
 
 def test_format_fallback_detected():

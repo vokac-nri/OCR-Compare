@@ -175,6 +175,7 @@ try {
         $env:PYTHONPATH = $root
         $envDir = Split-Path -Parent $mainPy
         $env:PATH = "$envDir\Library\bin;$envDir\Scripts;$envDir;" + $env:PATH
+        $env:OCR_COMPARE_HIDE_CONSOLE = "1"   # app hides this console once the GUI shows
         Stop-Transcript | Out-Null
         & $mainPy -m app.main
         $exitCode = $LASTEXITCODE

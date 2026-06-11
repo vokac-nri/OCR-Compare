@@ -57,6 +57,12 @@ class MainWindow(QMainWindow):
         for a in (self.run_action, self.cancel_action, import_action,
                   settings_action, outputs_action):
             tb.addAction(a)
+        run_btn = tb.widgetForAction(self.run_action)
+        run_btn.setStyleSheet(
+            "QToolButton { background: #2e7d32; color: white; font-weight: bold;"
+            " font-size: 14px; padding: 6px 18px; border-radius: 5px; margin: 2px; }"
+            "QToolButton:hover { background: #388e3c; }"
+            "QToolButton:disabled { background: #424242; color: #888; }")
 
         # ---- layout
         splitter = QSplitter()

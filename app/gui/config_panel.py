@@ -52,8 +52,7 @@ class ConfigPanel(QGroupBox):
         self.charts_check = QCheckBox("Chart parsing (chart → table) ⚠")
         self.charts_check.setToolTip(
             "Only PP-StructureV3 and PaddleOCR-VL honor this.\n"
-            "⚠ Prior testing showed PP-StructureV3 FABRICATED chart values —\n"
-            "treat chart→table output as unverified.")
+            "⚠ Chart→table output is experimental — verify extracted values.")
         lay.addWidget(self.charts_check)
 
         self.regions_check = QCheckBox("Charts/tables regions only")

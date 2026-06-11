@@ -72,6 +72,11 @@ class ResultsPanel(QWidget):
         for fe in rundata.files:
             item = QTreeWidgetItem(self.tree, [fe.file_name])
             item.setExpanded(True)
+            # Select/unselect-all for the document: checking the parent toggles
+            # every checkable result row beneath it (auto-tristate).
+            item.setFlags(item.flags() | Qt.ItemFlag.ItemIsUserCheckable
+                          | Qt.ItemFlag.ItemIsAutoTristate)
+            item.setCheckState(0, Qt.CheckState.Unchecked)
             self._file_items.append(item)
 
     def populate(self, rundata: RunData, run_dir: Path):
@@ -130,7 +135,8 @@ class ResultsPanel(QWidget):
         for fi in self._file_items:
             for i in range(fi.childCount()):
                 c = fi.child(i)
-                if c.checkState(0) == Qt.CheckState.Checked and c.data(0, PATH_ROLE):
+                if (c.checkState(0) == Qt.CheckState.Checked and not c.isDisabled()
+                        and c.data(0, PATH_ROLE)):
                     out.append(Path(c.data(0, PATH_ROLE)))
         return out
 

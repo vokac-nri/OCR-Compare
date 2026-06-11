@@ -64,9 +64,11 @@ class EnginePanel(QGroupBox):
         for text, fn in [("All", self._select_all), ("None", self._select_none),
                          ("Fast only", self._select_fast)]:
             btn = QPushButton(text)
-            btn.setFlat(True)
-            btn.setMaximumWidth(70)
-            btn.setStyleSheet("text-align:left; color:#1565c0;")
+            btn.setStyleSheet(
+                "QPushButton { border: 1px solid #1565c0; border-radius: 11px;"
+                " padding: 3px 14px; background: transparent; }"
+                "QPushButton:hover { background: rgba(21,101,192,0.35); }")
+            btn.setCursor(Qt.CursorShape.PointingHandCursor)
             btn.clicked.connect(fn)
             links.addWidget(btn)
         links.addStretch(1)

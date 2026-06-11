@@ -1,6 +1,7 @@
 """Pre-run check dialog: warnings + the regions-only skip/run-full choice."""
 from __future__ import annotations
 
+from PySide6.QtGui import QPalette
 from PySide6.QtWidgets import (QDialog, QDialogButtonBox, QGroupBox, QLabel,
                                QRadioButton, QVBoxLayout)
 
@@ -17,15 +18,25 @@ class PrecheckDialog(QDialog):
         lay = QVBoxLayout(self)
         self._skip_radio = None
 
-        def section(text: str, color: str = "#333"):
+        dark = self.palette().color(QPalette.ColorRole.Window).lightness() < 128
+        red = "#ef5350" if dark else "#c62828"
+        orange = "#ffa726" if dark else "#ef6c00"
+
+        def section(text: str, color: str = ""):
             lbl = QLabel(text)
             lbl.setWordWrap(True)
-            lbl.setStyleSheet(f"color: {color};")
+            if color:
+                lbl.setStyleSheet(f"color: {color};")
             lay.addWidget(lbl)
 
-        if report.chart_warning:
-            section(f"⚠ <b>Chart parsing:</b> {report.chart_warning}<br>"
-                    f"Honored by: {', '.join(report.chart_capable)}.", "#c62828")
+        section("⚠ <b>Engine output is not guaranteed accurate</b> — don't treat "
+                "any results as 100% fact; verify important values against the "
+                "source document.", red)
+
+        if report.chart_capable:
+            section("Chart parsing honored by: <b>"
+                    + ", ".join(report.chart_capable)
+                    + "</b>. Other engines ignore the flag.")
 
         if report.regions_unsupported:
             box = QGroupBox("Regions-only mode")
@@ -43,7 +54,7 @@ class PrecheckDialog(QDialog):
             lay.addWidget(box)
 
         for engine, msg in report.slow_warnings:
-            section(f"🐢 <b>{engine}</b>: {msg}", "#ef6c00")
+            section(f"🐢 <b>{engine}</b>: {msg}", orange)
 
         if report.format_fallbacks:
             rows = "".join(f"<li><b>{e}</b>: {req} → {used}</li>"
@@ -57,7 +68,7 @@ class PrecheckDialog(QDialog):
             section(f"<ul>{rows}</ul>")
 
         if not report.has_content():
-            section("No warnings — ready to run.")
+            section("No other warnings — ready to run.")
 
         buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok
                                    | QDialogButtonBox.StandardButton.Cancel)

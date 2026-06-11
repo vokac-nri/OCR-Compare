@@ -8,20 +8,12 @@ from dataclasses import dataclass, field
 from app.core.plan import RunPlan
 from app.engines import get_spec
 
-CHART_FABRICATION_WARNING = (
-    "Prior testing showed PP-StructureV3's chart→table conversion FABRICATED "
-    "half the values on one chart, and PaddleOCR-VL dropped/misattributed a "
-    "chart series. Treat chart-parsing output as unverified."
-)
-
-
 @dataclass
 class PrecheckReport:
     # engines selected but lacking regions-only support (dialog offers skip/run-full)
     regions_unsupported: list[str] = field(default_factory=list)
     # engines that will honor chart parsing (others silently ignore the flag)
     chart_capable: list[str] = field(default_factory=list)
-    chart_warning: str = ""
     # (engine, message) slowness warnings
     slow_warnings: list[tuple[str, str]] = field(default_factory=list)
     # (engine, requested, used) for engines falling back to their native format
@@ -68,6 +60,4 @@ def build_precheck_report(plan: RunPlan, gpu_available: dict[str, bool]) -> Prec
                     (eid, f"No GPU acceleration available for {framework} — will run on CPU, "
                           "likely 10–50× slower."))
 
-    if plan.charts and rep.chart_capable:
-        rep.chart_warning = CHART_FABRICATION_WARNING
     return rep
