@@ -1,0 +1,4 @@
+# Stage 3: paddleocr with [all] extras (PP-StructureV3 / PaddleOCR-VL
+# pipelines need the doc-parser dependencies), plus pymupdf for rasterizing.
+paddleocr[all]==3.6.0
+pymupdf==1.27.2.3

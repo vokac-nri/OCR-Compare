@@ -1,0 +1,21 @@
+name: ocr-compare
+channels:
+  - conda-forge
+  - nodefaults   # never touch repo.anaconda.com (ToS/commercial-license gated)
+dependencies:
+  # Python 3.11: best simultaneous wheel coverage for paddlepaddle-gpu, torch,
+  # PySide6, and docling on Windows.
+  - python=3.11
+  - pip
+  # Native binaries from conda-forge so no separate Windows installers are needed.
+  - tesseract        # provides tesseract.exe for pytesseract
+  - poppler          # provides pdftotext.exe
+  - git
+  # PySide6 must come from conda-forge: pip's PySide6 wheels fail to import
+  # QtCore on conda-forge Python ("specified procedure could not be found").
+  # Keep this pin in sync with requirements\ocr-compare\conda.txt.
+  - pyside6=6.11.1
+  # All other Python packages are installed by setup_env.ps1 in stages from the
+  # pinned manifests under requirements\, because the torch and paddle wheels
+  # come from different package indexes and pip inside environment.yml supports
+  # only a single index cleanly.

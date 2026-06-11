@@ -1,0 +1,5 @@
+# Stage 1: CPU torch ALWAYS (both variants). It exists only to satisfy
+# paddleocr -> modelscope -> torch; a CUDA torch here would clash with
+# paddle's bundled cudnn DLLs in-process (WinError 127). Install FIRST.
+--index-url https://download.pytorch.org/whl/cpu
+torch==2.12.0+cpu

@@ -1,0 +1,2 @@
+# Stage 2 (cpu): CPU paddle from PyPI (no NVIDIA GPU, or GPU check failed).
+paddlepaddle==3.3.1

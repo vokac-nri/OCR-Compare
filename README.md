@@ -18,15 +18,57 @@ side by side (timing, optional CER/WER accuracy, external diff tools).
 Click the ⓘ next to any engine in the app for how it works, what makes it
 different, and its known caveats.
 
-## Setup
+## Quick start (one click)
 
-Requires Windows + [Miniconda](https://docs.conda.io/) (configured for
-conda-forge; the setup script never touches the ToS-gated Anaconda channels).
+Double-click **`OCR-Compare.exe`** (or **`Start-OCR-Compare.cmd`** if your
+machine blocks unsigned executables — they do exactly the same thing).
+
+Every launch verifies the installation and fixes only what is missing or at
+the wrong version, then starts the app:
+
+- **First run on a fresh machine:** fully automatic, but slow — it downloads
+  and silently installs [Miniforge](https://github.com/conda-forge/miniforge)
+  if no conda exists, creates both conda environments, and installs several GB
+  of packages (30–60 min depending on network/GPU). Tesseract and Poppler
+  binaries are included — no separate installers.
+- **Subsequent launches:** a cached stamp confirms nothing changed and the app
+  starts in a couple of seconds.
+- **GPU is auto-detected:** machines with an NVIDIA GPU get CUDA wheels;
+  others get CPU-only torch/paddle (everything works, but PaddleOCR-VL is
+  impractically slow on CPU).
+
+> **SmartScreen note:** `OCR-Compare.exe` is unsigned, so Windows may warn on
+> first run ("More info" → "Run anyway"). Use `Start-OCR-Compare.cmd` where
+> the exe is blocked outright.
+
+Launcher options (run `bootstrap.ps1` directly for these):
 
 ```powershell
-.\setup_env.ps1          # creates BOTH conda envs (tesseract + poppler
-                         # binaries included — no separate installers)
-.\run_app.ps1            # launch the GUI
+.\bootstrap.ps1 -Recheck       # ignore the cached stamp, re-verify every pin now
+.\bootstrap.ps1 -Reinstall     # force a full setup_env.ps1 pass
+.\bootstrap.ps1 -Variant cpu   # force CPU wheels regardless of detected GPU
+.\bootstrap.ps1 -NoLaunch      # verify/repair only, don't start the GUI
+```
+
+How it works: version pins live in `requirements\<env>\*.txt` (one file per
+install stage; the `NN-` prefix encodes the torch → paddle → PyPI install
+order that keeps CUDA wheels from being downgraded). `bootstrap.ps1` hashes
+those manifests into a stamp at `%LOCALAPPDATA%\OCR-Compare\launcher_state.json`;
+editing any pin (or deleting the stamp) makes the next launch re-check and
+repair via `tools\check_deps.py` + `setup_env.ps1 -Repair`. Launcher and setup
+logs land in `%LOCALAPPDATA%\OCR-Compare\logs\`.
+
+## Manual / development setup
+
+Requires Windows + Miniconda or Miniforge (conda-forge; the setup script never
+touches the ToS-gated Anaconda channels — conda is located via `CONDA_EXE`,
+`%LOCALAPPDATA%`, `%USERPROFILE%`, or PATH).
+
+```powershell
+.\setup_env.ps1          # full install of BOTH conda envs
+.\setup_env.ps1 -Repair  # reinstall from the pinned manifests only (faster)
+.\setup_env.ps1 -Variant cpu   # CPU-only wheels
+.\run_app.ps1            # launch the GUI without the dependency check
 ```
 
 Setup creates **two** environments, because torch-GPU and paddle-GPU cannot
@@ -94,6 +136,9 @@ conda run -n ocr-compare python tools\check_env.py # engine/GPU smoke check
 conda run -n ocr-compare python -m app.worker --engine pymupdf `
   --input sample.pdf --kind pdf --max-pages 2 --format txt `
   --output out.txt --job-id test
+# rebuild OCR-Compare.exe after changing tools\launcher_stub.ps1
+# (bootstrap.ps1 changes do NOT need a rebuild - the exe is a thin shim):
+.\tools\build_launcher.ps1
 ```
 
 Layering rules: `app/worker.py` + `app/engines/adapters/` never import Qt;

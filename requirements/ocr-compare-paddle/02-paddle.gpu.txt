@@ -1,0 +1,3 @@
+# Stage 2 (gpu): CUDA paddle from the PaddlePaddle index.
+--index-url https://www.paddlepaddle.org.cn/packages/stable/cu126/
+paddlepaddle-gpu==3.3.1

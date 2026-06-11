@@ -1,0 +1,5 @@
+# Conda-forge packages, verified by check_deps.py but NEVER pip-installed
+# (setup_env.ps1 repairs these with `conda install -c conda-forge`).
+# PySide6 from pip fails to import QtCore on conda-forge Python.
+# Keep in sync with the pyside6 pin in environment.yml.
+PySide6==6.11.1
