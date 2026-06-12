@@ -1,0 +1,131 @@
+MERIDIANAPEXINDUSTRIES
+INTERNALUSEONLY
+Engineering Tomorrow's Intelligence
+DOC ID:MAI-CTO-2026-014|REV 2.1
+Enterprise Al Strategy & Alignment Briefing
+Office of the Chief Technology Officer|Fiscal Year2026|Preparedfor theExecutiveLeadershipCouncil
+ExecutiveSummary
+the Engineering and Customer Support organizations has matured into a governed portfolioof twenty-three active
+initiatives,adedicatedAlPlatformGroupofseventy-onefull-timeengineers,andanexecutive-sponsoredResponsibleAl
+Ourcentral thesisremainsunchanged:Alisnotastandaloneproduct lineforMeridianApex,but ahorizontal capability
+that compounds the value of every existing business unit.Accordingly,we measure success not by the number of models
+we train,butbycycle-timereduction,qualityimprovement,and riskreductionintheworkflowsourpeoplealreadyperform.
+investment, and we project the portfolio to reach break-even on a run-rate basis in Q4 2026.The investment curve below
+reflectsadeliberateaccelerationapprovedbytheFinanceCommitteeinNovember2025.
+EnterpriseAlInvestment&StaffingTrajectory
+14
+80
+Alinvestment($M)
+12
+DedicatedAlheadcount
+Investment ($M)
+10
+9.8
+60
+Headcount (FTE)
+8
+7.4
+40
+6
+5.6
+3.2
+20
+0
+0
+Q1'25
+Q2'25
+Q3'25
+Q4'25
+Q1'26
+Q2'26
+Figure1.QuarterlyAlinvestment(bars,left axis)and dedicatedAlheadcount(line,right axis),Q12025-Q22026.Source:FP&A;
+consolidatedactuals,May2026.
+StrategicAlignmentPillars
+1.Workflow-first deployment.Every initiative must attachto a named business workflow with a baseline metric.We
+explicitly deprioritize'technology looking for a problem'efforts; proposals without a measurable workflow owner are
+returned by the intake committee. 2.Human accountability.Al systems at Meridian Apex draft, recommend,and
+accelerate—theydonotautonomouslyapprove,deny,ortransactwherecustomeroremployeeoutcomesareatstake.
+A named human owner signs off on every consequential decision path, and this principle is contractually embedded in our
+vendoragreements.
+infrastructure,evaluation harnesses, and audit logging. Business units consume these as internal services rather than
+procuring shadow tooling,which keeps our security posture consistent and our spending negotiable at enterprise scale. 4.
+ResponsibleAlbydesign.Biasevaluation,data-provenancereview，andred-teamtestingarestagegatesinthe
+deliverylifecycle,not after-the-factaudits.TheResponsibleAlCouncil,chairedbytheGeneral Counsel,holdsveto
+authorityoverproductionlaunches.
+MeridianApexIndustries|Confidential—InternalDistribu馬oterpribeAlStrategy&AlignmentBriefing—FY2026
+Page 1 of 2
+
+MERIDIANAPEXINDUSTRIES
+INTERNALUSEONLY
+Engineering Tomorrow's Intelligence
+DOCID:MAI-CTO-2026-014|REV2.1
+Governance&ResponsibleAlPosture
+TheResponsible Al Council met eleven times during the trailing twelve months and reviewed nineteen launch requests,
+approving fourteen, returning four for additional evaluation evidence, and rejecting one. The most common deficiency
+remains incomplete documentation of training-data provenance for third-party models, and we have responded by
+standardizingamodel-intakequestionnairethatvendorsmustcompletebeforeprocurementproceeds.Inparallel,the
+Internal Audit functionhas added Al-system controls toits annual plan,with the first horizontal audit of the model gateway
+completedthemandatory'WorkingResponsiblywithAl'curriculum,and410practitionersholdtheadvancedbuilder
+certificationrequiredtoshipAlfeaturestoproduction.
+InitiativePortfolio—Tier-1Programs
+Initiative
+Business Owner
+Stage
+FY26Budget
+AnnualizedBenefit
+Status
+Atlas—engineering copilot rollout
+VP,Engineering
+Scaled
+$2.4M
+$4.1M
+On track
+Beacon—support deflection&triage
+SVP,CustomerOps
+Scaled
+$1.8M
+$3.3M
+On track
+Ledger-lIQ-financecloseautomationCorporateController
+Pilot
+$1.1M
+$0.9M (proj.)
+On track
+Compass —sales proposal drafting
+CRO Office
+Pilot
+$0.9M
+$1.4M (proj.)
+Watch
+Sentinel—fraud anomalydetection
+ChiefRiskOfficer
+Build
+$1.6M
+$2.2M (proj.)
+On track
+Archive-RAG—policyknowledgebase Chief Counsel
+Scaled
+$0.7M
+$1.0M
+On track
+Foundry—agenticworkflowplatform
+CTO Office
+Build
+$2.1M
+On track
+Table1.Tier-1Alinitiativeportfolioasof31May2026.ProjectedbenefitsareFP&A-validated;estimates;'Watch'indicatesascheduleor
+adoptionriskunderactivemanagement.
+OutlookfortheSecondHalfof2026
+Thesecondhalf of thefiscalyearis aboutdepth,not breadth.Wewill hold theportfolio atroughlyits currentsizewhile
+pushingthetwoscaledprograms,Atlasand Beacon,towardfull-populationadoption,andgraduatingLedger-lQand
+Compass from pilot to scale subject to their stage-gate reviews in September.The Foundry agentic platform represents
+procurement and vendor-onboarding cycle times by 40-60%, but they also raise the bar for evaluation rigor, rollback
+design, and audit logging. We will not scale agentic workflows until the Council's autonomy framework — currently in draft
+-is ratified.
+Finally,talent remains the binding constraint. Attrition among senior machine-learning engineers is below industry
+benchmarks,butdemandfrombusinessunitsnowexceedsplatformcapacitybyroughlythreetoone.TheQ3hiringplan
+addseighteenplatformroles,andwearepilotingarotational'AlGuild'programthatembedscertifiedpractitionersfrom
+businessunitsintoplatformsquadsforsix-month tours.Leadershipendorsementofthatprogram at theJulyoffsiteisthe
+singlemostvaluableactionthisCouncilcantaketosustainourmomentum.
+MeridianApexIndustries|Confidential—InternalDistribu馬oterpribeAlStrategy&AlignmentBriefing—FY2026
+Page 2 of 2

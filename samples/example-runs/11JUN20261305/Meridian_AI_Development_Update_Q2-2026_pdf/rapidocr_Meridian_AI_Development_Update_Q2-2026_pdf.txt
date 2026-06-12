@@ -1,0 +1,167 @@
+MERIDIANAPEXINDUSTRIES
+INTERNALUSEONLY
+Engineering Tomorrow's Intelligence
+DOCID:MAI-AIP-2026-Q2-07|REV 1.0
+Q2 2026Al Development &AdoptionUpdate
+Quarterly memorandum from the Al Platform Group
+TO:
+Executive Leadership Council; Business Unit General Managers
+FROM:
+Dr.ElenaMarchetti,VPofAlPlatforms&Research
+DATE:
+11June2026
+RE:
+The second quarter marked the transition of the Meridian AlPlatform from a single-region deployment to an actively
+replicated, multi-region service with a contractual 99.9% availability target.Platform request volume grew 38% quarter
+overquarter,drivenprimarilybythegeneralavailabilityofAtlasengineeringcopilotsacrossallproductlinesand thefirst
+production cohorts of Foundry agentic workflows inProcurement.We completed the migration of all retrieval workloads to
+Model evaluationcoverage—theshareofproductiontrafficflowing through automatedquality and safetyevaluation—
+reached 96%,up from 81% at the end of Q1.
+Adoption maturity,however, remains uneven across the enterprise, and closing that gap is the central theme of our
+second-half plan.The heatmapbelow summarizes the quarterly maturity assessment conducted witheach department,
+outcomes,andlocalgovernancepractice.EngineeringandCustomerSupportcontinuetolead,reflectingtwofullyearsof
+investment.Legal&Compliancescoreslowonautomationbydeliberatedesign—theirworkloademphasizesretrieval
+anddraftingassistance—butHumanResourcesrepresentsagenuineadoptionshortfallthatweareaddressingwitha
+dedicatedenablementsprint inJuly.
+AlCapabilityMaturityHeatmap-Q22026Assessment
+Engineering
+4.6
+4.2
+4.4
+4.8
+3.9
+5.0
+Operations
+3.1
+4.5
+4.7
+3.4
+4.0
+4.5
+4.0
+Maturity score (1-5)
+Finance
+3.8
+4.3
+3.9
+3.2
+4.1
+3.5
+HR
+3.5
+2.6
+3.0
+3.8
+2.4
+3.0
+Sales&
+4.4
+3.7
+2.9
+4.1
+3.3
+2.5
+Marketing
+2.0
+Customer
+4.7
+3.2
+4.1
+4.6
+3.6
+Support
+1.5
+Legal &
+2.8
+2.2
+2.5
+3.9
+2.7
+1.0
+Compliance
+Generative
+Predictive
+Process
+Knowledge
+Decision
+Drafting
+Analytics
+Automation
+Retrieval
+Support
+Figure1.DepartmentalAlcapabilitymaturity,Q22026self-assessmentvalidatedbytheAlPlatformGroup.Scale:1(exploratory)to5
+(optimized and governed).
+Page 1 of 2
+
+MERIDIANAPEXINDUSTRIES
+INTERNALUSEONLY
+EngineeringTomorrow'sIntelligence
+DOCID:MAI-AIP-2026-Q2-07|REV1.0
+PlatformWorkloadGrowth
+Workload mix is shifting in line with the strategy. Engineering copilots remain the largest single consumer of platform
+Retrieval-augmentedknowledgeworkloadsgrewsteadilyastheconsolidatedpolicycorpusexpandedto1.9million
+documents. Capacity planning for the second half assumes a further 2.5x increase in agentic traffic, which is the primary
+driver of the incremental inference budget submitted to Finance in May.
+InternalAlPlatformUsagebyWorkload,2026YTD
+Requests (thousands)
+1000
+Engineeringcopilots
+Knowledgeretrieval (RAG)
+800
+Agenticworkflows
+600
+400
+200
+0
+Jan
+Feb
+Mar
+Apr
+May
+Figure 2.Monthly platform requests by workload category,January-May 2026(thousands).Source: platform gateway telemetry.
+DeliveryHighlights&OperationalMetrics
+Metric
+Q12026
+Q22026
+QQ
+2H Target
+ProductionAl servicesin catalog
+31
+42
++35%
+55
+Monthly active platform users
+3,120
+4,610
++48%
+6,000
+Median gateway latency (p50,ms)
+640
+410
+-36%
+≤400
+Eval coverage of production traffic
+81%
+%96
++15 pts
+≥98%
+Safety incidents (Sev-2 or higher)
+3
+1
+-2
+0
+Meancostper1Krequests
+$2.31
+$1.68
+-27%
+$1.40
+Table1.AlPlatformoperational scorecard.Targetsratified by theCTOstaffon28May2026.
+RisksandSecond-HalfPriorities
+frameworkmustberatifiedbeforeFoundryscalesbeyondProcurement;absentthat,wewillholdnewagenticlaunches
+evenatthecostofroadmapslippage.Second,evaluationdebt:whilecoverageishigh,severalolderservicesrelyon
+first-generation test suites that predate our current rubric, and a remediation sprint is scheduled for August. Third,
+concentration risk in our primary model vendor; the gateway's multi-provider abstraction is complete, and we will qualify
+a secondfrontier-modelproviderforTier-1workloadsbyOctober.Oursecond-halfpriorities are,inorder:ratify and
+unifiedevaluationdashboard tobusiness-unit leaderssothatadoptionmaturitybecomesaself-servicemetricratherthan
+a quarterly survey.
+Page 2of 2

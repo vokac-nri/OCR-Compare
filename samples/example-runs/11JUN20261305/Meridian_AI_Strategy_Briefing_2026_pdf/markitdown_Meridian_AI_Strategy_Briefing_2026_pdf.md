@@ -1,0 +1,180 @@
+MERIDIAN APEX INDUSTRIES
+Engineering Tomorrow's Intelligence
+
+INTERNAL USE ONLY
+DOC ID: MAI-CTO-2026-014  |  REV 2.1
+
+Enterprise AI Strategy & Alignment Briefing
+Office of the Chief Technology Officer | Fiscal Year 2026 | Prepared for the Executive Leadership Council
+
+Executive Summary
+
+Over  the  past  eighteen  months,  Meridian  Apex  Industries  has  moved  from  exploratory  pilots  to  a  coordinated,
+enterprise-wide artificial intelligence program. What began in early 2025 as a handful of isolated proofs of concept inside
+the  Engineering  and  Customer  Support  organizations  has  matured  into  a  governed  portfolio  of  twenty-three  active
+initiatives, a dedicated AI Platform Group of seventy-one full-time engineers, and an executive-sponsored Responsible AI
+Council that reviews every production deployment. This briefing summarizes where we stand, how our investments are
+tracking against the board-approved strategy, and the alignment principles that will guide the next phase of scaling.
+
+Our central thesis remains unchanged: AI is not a standalone product line for Meridian Apex, but a horizontal capability
+that compounds the value of every existing business unit. Accordingly, we measure success not by the number of models
+we train, but by cycle-time reduction, quality improvement, and risk reduction in the workflows our people already perform.
+In  FY2025  the  program  delivered  an  estimated  $11.2M  in  annualized  productivity  gains  against  $20.3M  of  cumulative
+investment, and we project the portfolio to reach break-even on a run-rate basis in Q4 2026. The investment curve below
+reflects a deliberate acceleration approved by the Finance Committee in November 2025.
+
+Figure 1. Quarterly AI investment (bars, left axis) and dedicated AI headcount (line, right axis), Q1 2025 – Q2 2026. Source: FP&A;
+consolidated actuals, May 2026.
+
+Strategic Alignment Pillars
+
+1.  Workflow-first  deployment.  Every  initiative  must  attach  to  a  named  business  workflow  with  a  baseline  metric.  We
+explicitly  deprioritize  'technology  looking  for  a  problem'  efforts;  proposals  without  a  measurable  workflow  owner  are
+returned  by  the  intake  committee.  2.  Human  accountability.  AI  systems  at  Meridian  Apex  draft,  recommend,  and
+accelerate — they do not autonomously approve, deny, or transact where customer or employee outcomes are at stake.
+A named human owner signs off on every consequential decision path, and this principle is contractually embedded in our
+vendor agreements.
+
+3.  Platform  over  point  solutions.  The  AI  Platform  Group  operates  a  shared  gateway  for  model  access,  retrieval
+infrastructure,  evaluation  harnesses,  and  audit  logging.  Business  units  consume  these  as  internal  services  rather  than
+procuring shadow tooling, which keeps our security posture consistent and our spending negotiable at enterprise scale. 4.
+Responsible  AI  by  design.  Bias  evaluation,  data-provenance  review,  and  red-team  testing  are  stage  gates  in  the
+delivery  lifecycle,  not  after-the-fact  audits.  The  Responsible  AI  Council,  chaired  by  the  General  Counsel,  holds  veto
+authority over production launches.
+
+Meridian Apex Industries  |  Confidential — Internal Distribution Only
+
+Enterprise AI Strategy & Alignment Briefing — FY2026
+
+Page 1 of 2
+
+MERIDIAN APEX INDUSTRIES
+Engineering Tomorrow's Intelligence
+
+INTERNAL USE ONLY
+DOC ID: MAI-CTO-2026-014  |  REV 2.1
+
+Governance & Responsible AI Posture
+
+The Responsible AI Council met eleven times during the trailing twelve months and reviewed nineteen launch requests,
+approving  fourteen,  returning  four  for  additional  evaluation  evidence,  and  rejecting  one.  The  most  common  deficiency
+remains  incomplete  documentation  of  training-data  provenance  for  third-party  models,  and  we  have  responded  by
+standardizing  a  model-intake  questionnaire  that  vendors  must  complete  before  procurement  proceeds.  In  parallel,  the
+Internal Audit function has added AI-system controls to its annual plan, with the first horizontal audit of the model gateway
+scheduled  for  August  2026.  Employee  enablement  continues  to  scale:  4,800  employees  (62%  of  the  workforce)  have
+completed  the  mandatory  'Working  Responsibly  with  AI'  curriculum,  and  410  practitioners  hold  the  advanced  builder
+certification required to ship AI features to production.
+
+Initiative Portfolio — Tier-1 Programs
+
+Initiative
+
+Business Owner
+
+Stage
+
+FY26 Budget Annualized Benefit
+
+Status
+
+Atlas — engineering copilot rollout
+
+VP, Engineering
+
+Scaled
+
+$2.4M
+
+Beacon — support deflection & triage SVP, Customer Ops
+
+Scaled
+
+$1.8M
+
+$4.1M
+
+$3.3M
+
+On track
+
+On track
+
+Ledger-IQ — finance close automation Corporate Controller
+
+Pilot
+
+$1.1M
+
+$0.9M (proj.)
+
+On track
+
+Compass — sales proposal drafting
+
+CRO Office
+
+Pilot
+
+$0.9M
+
+$1.4M (proj.)
+
+Watch
+
+Sentinel — fraud anomaly detection
+
+Chief Risk Officer
+
+Build
+
+$1.6M
+
+$2.2M (proj.)
+
+On track
+
+Archive-RAG — policy knowledge baseChief Counsel
+
+Scaled
+
+$0.7M
+
+$1.0M
+
+Foundry — agentic workflow platform CTO Office
+
+Build
+
+$2.1M
+
+—
+
+On track
+
+On track
+
+Table 1. Tier-1 AI initiative portfolio as of 31 May 2026. Projected benefits are FP&A-validated; estimates; 'Watch' indicates a schedule or
+adoption risk under active management.
+
+Outlook for the Second Half of 2026
+
+The second half of the fiscal year is about depth, not breadth. We will hold the portfolio at roughly its current size while
+pushing  the  two  scaled  programs,  Atlas  and  Beacon,  toward  full-population  adoption,  and  graduating  Ledger-IQ  and
+Compass from pilot to scale subject to their stage-gate reviews in September. The Foundry agentic platform represents
+our  most  consequential  technical  bet:  early  internal  trials  suggest  that  supervised  multi-step  agents  can  compress
+procurement  and  vendor-onboarding  cycle  times  by  40–60%,  but  they  also  raise  the  bar  for  evaluation  rigor,  rollback
+design, and audit logging. We will not scale agentic workflows until the Council's autonomy framework — currently in draft
+— is ratified.
+
+Finally,  talent  remains  the  binding  constraint.  Attrition  among  senior  machine-learning  engineers  is  below  industry
+benchmarks, but demand from business units now exceeds platform capacity by roughly three to one. The Q3 hiring plan
+adds eighteen platform roles, and we are piloting a rotational 'AI Guild' program that embeds certified practitioners from
+business units into platform squads for six-month tours. Leadership endorsement of that program at the July offsite is the
+single most valuable action this Council can take to sustain our momentum.
+
+Meridian Apex Industries  |  Confidential — Internal Distribution Only
+
+Enterprise AI Strategy & Alignment Briefing — FY2026
+
+Page 2 of 2
+
