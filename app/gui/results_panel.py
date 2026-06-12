@@ -15,6 +15,7 @@ from PySide6.QtWidgets import (QHBoxLayout, QMessageBox, QPushButton,
 
 from app.core.openpath import open_path
 from app.core.rundata import JobResult, RunData
+from app.gui.markdown_diff_dialog import MarkdownDiffDialog
 from app.gui.viewer_dialog import ViewerDialog
 
 COLS = ["Output", "Status", "Format", "Wall s", "s/page", "Pages", "Device",
@@ -48,9 +49,15 @@ class ResultsPanel(QWidget):
         self.diff_btn.setToolTip("Check exactly 2 outputs, then diff them in "
                                  "the configured external tool")
         self.diff_btn.clicked.connect(self._diff_selected)
+        self.diff_md_btn = QPushButton("Diff rendered")
+        self.diff_md_btn.setToolTip("Check exactly 2 markdown outputs to "
+                                    "compare them as rendered documents, "
+                                    "ignoring markup noise")
+        self.diff_md_btn.clicked.connect(self._diff_rendered)
         self.folder_btn = QPushButton("Open run folder")
         self.folder_btn.clicked.connect(self._open_run_folder)
-        for b in (self.open_btn, self.open_ext_btn, self.diff_btn, self.folder_btn):
+        for b in (self.open_btn, self.open_ext_btn, self.diff_btn,
+                  self.diff_md_btn, self.folder_btn):
             btns.addWidget(b)
         btns.addStretch(1)
         lay.addLayout(btns)
@@ -141,9 +148,12 @@ class ResultsPanel(QWidget):
         return out
 
     def _update_buttons(self):
-        n = len(self._checked_paths()) if self._file_items else 0
+        paths = self._checked_paths() if self._file_items else []
+        n = len(paths)
         self.diff_btn.setEnabled(n == 2)
         self.diff_btn.setText(f"Diff selected ({n}/2)" if n else "Diff selected")
+        self.diff_md_btn.setEnabled(
+            n == 2 and all(p.suffix.lower() == ".md" for p in paths))
         has_run = self.run_dir is not None
         self.folder_btn.setEnabled(has_run)
         current = self.tree.currentItem()
@@ -169,6 +179,11 @@ class ResultsPanel(QWidget):
     def _open_run_folder(self):
         if self.run_dir:
             open_path(self.run_dir)
+
+    def _diff_rendered(self):
+        paths = self._checked_paths()
+        if len(paths) == 2:
+            MarkdownDiffDialog(paths[0], paths[1], self).exec()
 
     def _diff_selected(self):
         paths = self._checked_paths()
